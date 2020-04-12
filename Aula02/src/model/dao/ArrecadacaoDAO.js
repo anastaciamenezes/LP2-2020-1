@@ -3,16 +3,19 @@ import path from 'path';
 import excelToJson from 'convert-excel-to-json';
 
 import Municipio from '../entity/Municipio';
+import { ANOS } from '../../constants/Colunas';
 
 export default class ArrecadacaoDAO {
 
-    carregarArrecadacoesDosMunicipios(){
+    carregarArrecadacoesDosMunicipios() {
         let municipios = [];
+
+        let dados = this.extrairDadosDaPlanilha('A4:P185');
 
         /**
          * Aponta para o arquivo da planilha de dados
-         */
-        let caminhoArquivo = path.resolve(__dirname,'../../data/dados.xls');
+         
+        let caminhoArquivo = path.resolve(__dirname, '../../data/dados.xls');
 
         let dados = excelToJson({
             source: fs.readFileSync(caminhoArquivo),
@@ -36,5 +39,28 @@ export default class ArrecadacaoDAO {
         });
 
         return municipios;
+    }
+
+    carregarArrecadacoesPorAno(ano) {
+        if (ano in ANOS) {
+            let coluna = ANOS[ano];
+            let range = `${coluna}4:${coluna}185`;
+
+            let arrecadacoes = this.extrairDadosDaPlanilha(range);
+            let nomesMunicipios = this.extrairDadosDaPlanilha('A4:A185');
+            console.log(arrecadacoes, nomesMunicipios);
+
+        }
+    }
+    extrairDadosDaPlanilha(range) {
+        let caminhoArquivo = path.resolve(__dirname, '../../data/dados.xls');
+
+        let dados = excelToJson({
+            source: fs.readFileSync(caminhoArquivo),
+            range
+        });
+
+        return dados;
+
     }
 }

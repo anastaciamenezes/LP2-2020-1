@@ -12,8 +12,8 @@ var dao;
 describe(descricao, () => {
 
     beforeAll(() => dao = new ArrecadacaoDAO());
-    
-    test('deve carregar as arrecadações de todos os municípios', () => {
+
+    test(`deve carregar as arrecadações de todos os municípios`, () => {
         let municípios = dao.carregarArrecadacoesDosMunicipios();
         /**
          * Espera que o vetor municípios tenha 182 elementos dentro dele, ou seja, os 182 municípios existentes na planilha de dados
