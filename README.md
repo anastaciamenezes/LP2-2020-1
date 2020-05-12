@@ -1,0 +1,1 @@
+Este Projeto visa fundamentar as aulas de Linguagem de Programação II, através da criação de um app com Node.js e Mongoose para implementar um CRUD de produtos de supermercado
